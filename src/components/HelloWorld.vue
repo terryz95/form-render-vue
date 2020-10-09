@@ -1,114 +1,129 @@
-<template>
-  <div class="hello">
-    <h1>{{ msg }}</h1>
-    <p>
-      For a guide and recipes on how to configure / customize this project,<br />
-      check out the
-      <a href="https://cli.vuejs.org" target="_blank" rel="noopener"
-        >vue-cli documentation</a
-      >.
-    </p>
-    <h3>Installed CLI Plugins</h3>
-    <ul>
-      <li>
-        <a
-          href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-babel"
-          target="_blank"
-          rel="noopener"
-          >babel</a
-        >
-      </li>
-      <li>
-        <a
-          href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-eslint"
-          target="_blank"
-          rel="noopener"
-          >eslint</a
-        >
-      </li>
-    </ul>
-    <h3>Essential Links</h3>
-    <ul>
-      <li>
-        <a href="https://vuejs.org" target="_blank" rel="noopener">Core Docs</a>
-      </li>
-      <li>
-        <a href="https://forum.vuejs.org" target="_blank" rel="noopener"
-          >Forum</a
-        >
-      </li>
-      <li>
-        <a href="https://chat.vuejs.org" target="_blank" rel="noopener"
-          >Community Chat</a
-        >
-      </li>
-      <li>
-        <a href="https://twitter.com/vuejs" target="_blank" rel="noopener"
-          >Twitter</a
-        >
-      </li>
-      <li>
-        <a href="https://news.vuejs.org" target="_blank" rel="noopener">News</a>
-      </li>
-    </ul>
-    <h3>Ecosystem</h3>
-    <ul>
-      <li>
-        <a href="https://router.vuejs.org" target="_blank" rel="noopener"
-          >vue-router</a
-        >
-      </li>
-      <li>
-        <a href="https://vuex.vuejs.org" target="_blank" rel="noopener">vuex</a>
-      </li>
-      <li>
-        <a
-          href="https://github.com/vuejs/vue-devtools#vue-devtools"
-          target="_blank"
-          rel="noopener"
-          >vue-devtools</a
-        >
-      </li>
-      <li>
-        <a href="https://vue-loader.vuejs.org" target="_blank" rel="noopener"
-          >vue-loader</a
-        >
-      </li>
-      <li>
-        <a
-          href="https://github.com/vuejs/awesome-vue"
-          target="_blank"
-          rel="noopener"
-          >awesome-vue</a
-        >
-      </li>
-    </ul>
-  </div>
-</template>
-
 <script>
+import { widgets } from '../widgets'
+const {
+  checkbox: Checkbox,
+  checkboxes: Checkboxes,
+  date: Date,
+  dateRange: DateRange,
+  html: Html,
+  input: Input,
+  multiSelect: MultiSelect,
+} = widgets
 export default {
-  name: "HelloWorld",
-  props: {
-    msg: String
-  }
-};
+  name: 'HelloWorld',
+  data() {
+    return {
+      checked: true,
+      checkedList: [1, 3],
+      date: '',
+      dateRange: ['', ''],
+      text: '',
+      image: '',
+      selections: [],
+    }
+  },
+  watch: {
+    checked(val) {
+      console.log(val)
+    },
+    checkedList(val) {
+      console.log(val)
+    },
+    date(val) {
+      console.log(val)
+    },
+    dateRange(val) {
+      console.log(val)
+    },
+  },
+  methods: {
+    handleChange(name, string) {
+      this.image = string
+    },
+  },
+  render() {
+    return (
+      <div>
+        <div>
+          <Checkbox
+            name="test1"
+            value={this.checked}
+            onChange={(name, value) => (this.checked = value)}
+          />
+        </div>
+        <div>
+          <Checkboxes
+            schema={{ enum: [1, 2, 3], enumNames: ['One', 'Two', 'Three'] }}
+            value={this.checkedList}
+            onChange={(name, values) => {
+              this.checkedList = values
+            }}
+          />
+        </div>
+        <div>
+          <Date
+            value={this.date}
+            schema={{
+              format: 'time',
+            }}
+            options={{}}
+            onChange={(name, value) => {
+              this.date = value
+            }}
+          />
+        </div>
+        <div>
+          <DateRange
+            value={this.dateRange}
+            schema={{
+              format: 'dateTime',
+            }}
+            options={{
+              placeholder: ['开始时间', '结束时间'],
+            }}
+            onChange={(name, string) => {
+              this.dateRange = string
+            }}
+          />
+        </div>
+        <div>
+          <Html value="静态文本" schema={{}} />
+        </div>
+        <div>
+          <Input
+            value={this.text}
+            schema={{}}
+            options={{
+              suffix: 'RMB',
+            }}
+            onChange={(name, string) => {
+              this.text = string
+            }}
+          />
+        </div>
+        <div>
+          <Input
+            value={this.image}
+            schema={{ format: 'image' }}
+            options={{}}
+            onChange={this.handleChange}
+          />
+        </div>
+        <div>
+          <MultiSelect
+            value={this.selections}
+            schema={{
+              enum: ['A', 'B', 'C', 'D'],
+              enumNames: ['杭州', '武汉', '湖州', '贵阳'],
+            }}
+            options={{}}
+            onChange={(name, values) => {
+              this.selections = values
+            }}
+          />
+        </div>
+      </div>
+    )
+  },
+}
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped lang="less">
-h3 {
-  margin: 40px 0 0;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
-}
-</style>
