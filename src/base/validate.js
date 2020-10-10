@@ -8,7 +8,7 @@ import Color from 'color'
 import { isHidden } from './isHidden'
 import { hasRepeat, isFunction, baseGet, convertValue } from './utils'
 
-const isNotEmpty = val => [undefined, null].indexOf(val) === -1
+export const isNotEmpty = val => [undefined, null].indexOf(val) === -1
 
 const isEmptyObject = obj =>
   Object.keys(obj).length === 0 && obj.constructor === Object
@@ -145,7 +145,9 @@ export const getValidateText = (obj = {}) => {
           if (isRepeat) {
             return uniqueItems + ' 的值存在重复的'
           }
-        } catch (e) {}
+        } catch (e) {
+          // throw error
+        }
       }
     }
   }

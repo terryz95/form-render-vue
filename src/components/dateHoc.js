@@ -4,7 +4,6 @@ export default {
   functional: true,
   props: {
     p: Object,
-    onChange: Function,
     dateComponent: Object,
   },
   render(h, ctx) {

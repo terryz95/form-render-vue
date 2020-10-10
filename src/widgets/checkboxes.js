@@ -6,7 +6,6 @@ export default {
     [Checkbox.Group.name]: Checkbox.Group,
   },
   render(h, ctx) {
-    console.log('render', ctx)
     const p = ctx.props
     const { change: onChange } = ctx.listeners
     const { enum: enums, enumNames } = p.schema || {}
