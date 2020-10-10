@@ -217,7 +217,7 @@ export const asField = ({ FieldUI, Widget }) => {
       }
       return (
         <FieldUI {...{ props: fieldProps }}>
-          <Widget {...{ props: this._rest }} invalid={this.validateText} />
+          <Widget {...{ attrs: this._rest }} invalid={this.validateText} />
         </FieldUI>
       )
     },

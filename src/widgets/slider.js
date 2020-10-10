@@ -26,7 +26,7 @@ export default {
     }
 
     return (
-      <div className="fr-slider">
+      <div class="fr-slider">
         <Slider
           style={{ flexGrow: 1, marginRight: 12 }}
           {...{ props: setting }}

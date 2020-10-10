@@ -25,7 +25,7 @@ export default {
       ...options,
     }
     return (
-      <div className="fr-upload-mod">
+      <div class="fr-upload-mod">
         <Upload {...{ props }}>
           <Button icon="upload">上传</Button>
         </Upload>
@@ -34,7 +34,7 @@ export default {
             href={value}
             target="_blank"
             rel="noopener noreferrer"
-            className="fr-upload-preview"
+            class="fr-upload-preview"
           >
             已上传地址
           </a>

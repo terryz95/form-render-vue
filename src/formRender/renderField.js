@@ -11,7 +11,7 @@ export default {
     return (
       <Field
         isRoot={true}
-        {...{ props }}
+        {...{ attrs: props }}
         value={settings.data}
         formData={settings.formData}
         onChange={onChange}
