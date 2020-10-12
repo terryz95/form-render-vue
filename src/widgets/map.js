@@ -27,13 +27,13 @@ export default {
       const { text } = config
       return (
         <div>
-          <a class="pointer" onClick={this.toggle}>
+          <a class="pointer" onClick={this.toggle.bind(this)}>
             {text && typeof text === 'string' ? '+ ' + text : '+ 配置'}
           </a>
           <Modal
             title={(this.schema && this.schema.title) || '子配置'}
             visible={this.show}
-            onCancel={this.toggle}
+            onCancel={this.toggle.bind(this)}
             footer={null}
             width="80%"
             {...{ props: config }}
@@ -49,13 +49,13 @@ export default {
       const { text } = config
       return (
         <div>
-          <a class="pointer" onClick={this.toggle}>
+          <a class="pointer" onClick={this.toggle.bind(this)}>
             {text && typeof text === 'string' ? '+ ' + text : '+ 配置'}
           </a>
           <Drawer
             title={(this.schema && this.schema.title) || '子配置'}
             visible={this.show}
-            onClose={this.toggle}
+            onClose={this.toggle.bind(this)}
             width="80%"
             {...{ props: config }}
           >
