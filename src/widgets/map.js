@@ -39,7 +39,7 @@ export default {
             {...{ props: config }}
             style={{ maxWidth: 800, ...config.style }}
           >
-            <Map {...{ props: this.$attrs }} />
+            <Map {...{ props: this.$attrs }} on={this.$listeners} />
           </Modal>
         </div>
       )
@@ -59,11 +59,11 @@ export default {
             width="80%"
             {...{ props: config }}
           >
-            <Map {...{ props: this.$attrs }} />
+            <Map {...{ props: this.$attrs }} on={this.$listeners} />
           </Drawer>
         </div>
       )
     }
-    return <Map {...{ props: this.$attrs }} />
+    return <Map {...{ props: this.$attrs }} on={this.$listeners} />
   },
 }

@@ -3,7 +3,8 @@ export default {
   functional: true,
   render(h, ctx) {
     const p = ctx.props
-    const { change: onChange } = ctx.listeners
+    const { change } = ctx.listeners
+    const onChange = e => change(p.name, e.target.value)
     const { enum: enums, enumNames } = p.schema || {}
     return (
       <Radio.Group

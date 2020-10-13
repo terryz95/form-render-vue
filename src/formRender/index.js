@@ -1,4 +1,4 @@
-import debounce from 'lodash.debounce'
+import { debounce } from 'lodash'
 import { asField, DefaultFieldUI } from '../base/asField'
 import { isDeepEqual } from '../base/utils'
 import resolve from '../base/resolve'
@@ -21,27 +21,27 @@ export default {
     className: String,
     schema: {
       type: Object,
-      default: () => {},
+      default: () => ({}),
     },
     formData: {
       type: Object,
-      default: () => {},
+      default: () => ({}),
     },
     widgets: {
       type: Object,
-      default: () => {},
+      default: () => ({}),
     },
     fieldUi: {
       type: Object,
-      default: DefaultFieldUI,
+      default: () => DefaultFieldUI,
     },
     fields: {
       type: Object,
-      default: () => {},
+      default: () => ({}),
     },
     mapping: {
       type: Object,
-      default: () => {},
+      default: () => ({}),
     },
     showDescIcon: {
       type: Boolean,
@@ -99,12 +99,27 @@ export default {
     schema: {
       deep: true,
       immediate: true,
-      handler: this.schemaWatcher,
+      handler: function(val, prev) {
+        if (this.resetIsUserInput()) {
+          return
+        }
+        if (!isDeepEqual(prev, val)) {
+          this.$emit('change', this.data)
+          this.updateValidation()
+        }
+      },
     },
     formData: {
       deep: true,
       immediate: true,
-      handler: this.formDataWatcher,
+      handler: function(val, prev) {
+        if (this.resetIsUserInput()) {
+          return
+        }
+        if (!isDeepEqual(prev, val)) {
+          this.updateValidation()
+        }
+      },
     },
   },
   mounted() {
@@ -134,23 +149,6 @@ export default {
         return true
       }
       return false
-    },
-    schemaWatcher(val, prev) {
-      if (this.resetIsUserInput()) {
-        return
-      }
-      if (!isDeepEqual(prev, val)) {
-        this.$emit('change', this.data)
-        this.updateValidation()
-      }
-    },
-    formDataWatcher(val, prev) {
-      if (this.resetIsUserInput()) {
-        return
-      }
-      if (!isDeepEqual(prev, val)) {
-        this.updateValidation()
-      }
     },
   },
   render() {

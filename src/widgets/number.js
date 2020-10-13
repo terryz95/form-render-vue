@@ -3,6 +3,7 @@ export default {
   functional: true,
   render(h, ctx) {
     const p = ctx.props
+    const { change } = ctx.listeners
     const style = p.invalid
       ? { borderColor: '#ff4d4f', boxShadow: '0 0 0 2px rgba(255,77,79,.2)' }
       : {}
@@ -21,7 +22,7 @@ export default {
     }
 
     const onChange = value => {
-      p.onChange(p.name, value)
+      change(p.name, value)
     }
 
     return (

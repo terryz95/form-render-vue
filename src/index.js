@@ -34,6 +34,7 @@ export default {
             ...originWidgets,
             ...this.widgets,
           }}
+          on={this.$listeners}
         />
       </a-config-provider>
     )

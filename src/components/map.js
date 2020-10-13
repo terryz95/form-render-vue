@@ -1,7 +1,8 @@
 export default {
   functional: true,
   render(h, ctx) {
-    const { p } = ctx.props
+    const p = ctx.props
+    const { change: onChange } = ctx.listeners
     const { options = {} } = p || {}
     const isModal = options.modal || options.drawer
     let className = 'fr-map'
@@ -13,7 +14,7 @@ export default {
     return (
       <div class={className}>
         {Object.keys(p.value).map(name => {
-          return p.getSubField({
+          const Widget = p.getSubField({
             name,
             value: p.value[name],
             onChange(key, val, objValue) {
@@ -39,10 +40,11 @@ export default {
                 )
                 console.groupEnd()
               }
-              p.onChange(p.name, value)
+              onChange(p.name, value)
             },
             rootValue: p.value,
           })
+          return <Widget />
         })}
       </div>
     )

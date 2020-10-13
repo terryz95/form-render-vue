@@ -10,6 +10,8 @@
   "dependencies": {
     "ant-design-vue": "^1.6.5",
     "core-js": "^3.6.5",
+    "pope": "^2.0.2",
+    "validator": "^13.1.17",
     "vue": "^2.6.11"
   },
   "devDependencies": {

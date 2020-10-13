@@ -71,7 +71,7 @@ export const asField = ({ FieldUI, Widget }) => {
         return convertValue(this.readonly, this.formData, this.rootValue)
       },
       _options() {
-        let map = Object.create(null)
+        let map = { ...this.options }
         try {
           Object.entries(this.options).forEach(([key, _val]) => {
             map[key] = convertValue(_val, this.formData, this.rootValue)
@@ -83,7 +83,7 @@ export const asField = ({ FieldUI, Widget }) => {
       },
       _schema() {
         // iterate over schema, and convert every key
-        let map = Object.create(null)
+        let map = { ...this.schema }
         Object.keys(this.schema).forEach(key => {
           const availableKey = [
             'title',
@@ -116,6 +116,9 @@ export const asField = ({ FieldUI, Widget }) => {
       _rest() {
         return {
           ...this.$attrs,
+          displayType: this.displayType,
+          dependShow: this.dependShow,
+          value: this.value,
           schema: this._schema,
           disabled: this._disabled,
           readonly: this._readonly,
@@ -217,7 +220,11 @@ export const asField = ({ FieldUI, Widget }) => {
       }
       return (
         <FieldUI {...{ props: fieldProps }}>
-          <Widget {...{ attrs: this._rest }} invalid={this.validateText} />
+          <Widget
+            {...{ attrs: this._rest }}
+            invalid={this.validateText}
+            on={this.$listeners}
+          />
         </FieldUI>
       )
     },

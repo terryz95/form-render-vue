@@ -4,29 +4,29 @@ export default {
   functional: true,
   render(h, ctx) {
     const { action, value, name, options = {} } = ctx.props
-    const { change: onChange } = ctx.listeners
+    const { change } = ctx.listeners
     const _action = action || (options && options.action)
     const _className = `fr-upload-file ${options ? options.className : ''}`
+    const onChange = info => {
+      if (info.file.status === 'done') {
+        Message.success(`${info.file.name} 上传成功`)
+        change(name, info.file.response.url)
+      } else if (info.file.status === 'error') {
+        Message.error(`${info.file.name} 上传失败`)
+      }
+    }
     const props = {
       name: 'file',
       action: _action,
       className: _className,
-      onChange: info => {
-        if (info.file.status === 'done') {
-          Message.success(`${info.file.name} 上传成功`)
-          onChange(name, info.file.response.url)
-        } else if (info.file.status === 'error') {
-          Message.error(`${info.file.name} 上传失败`)
-        }
-      },
-      onRemove() {
-        onChange(name, '')
+      remove() {
+        change(name, '')
       },
       ...options,
     }
     return (
       <div class="fr-upload-mod">
-        <Upload {...{ props }}>
+        <Upload {...{ props }} onChange={onChange}>
           <Button icon="upload">上传</Button>
         </Upload>
         {value && (
